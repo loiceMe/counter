@@ -7,61 +7,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var counterLabel: UILabel!
-    @IBOutlet weak var historyTextView: UITextView!
-    @IBOutlet weak var addBookButton: UIButton!
-    @IBOutlet weak var removeAllBooksButton: UIButton!
-    @IBOutlet weak var removeBookButton: UIButton!
+final class ViewController: UIViewController {
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var historyTextView: UITextView!
+    @IBOutlet private weak var addBookButton: UIButton!
+    @IBOutlet private weak var removeAllBooksButton: UIButton!
+    @IBOutlet private weak var removeBookButton: UIButton!
     
-    private var _booksCounter: Int = 0 {
+    private var booksCounter: Int = 0 {
         didSet {
             updateCounterLabel()
             updateButtonColors()
         }
     }
     
-    private var booksCounter: Int {
-        set { _booksCounter = newValue < 0 ? 0 : newValue }
-        get { _booksCounter }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    @IBAction func onPressAddBookButton(_ sender: Any) {
-        addHistoryItem(historyItemType: .add)
-        booksCounter += 1
-    }
-    
-    @IBAction func onPressRemoveBookButton(_ sender: Any) {
-        if booksCounter - 1 < 0 {
-            addHistoryItem(historyItemType: .negativeValue)
-        } else {
-            addHistoryItem(historyItemType: .remove)
-        }
-        booksCounter -= 1
-    }
-    
-    @IBAction func onPressRemoveAllBooksButton(_ sender: Any) {
-        let removeAllBooksAlert = UIAlertController(title: "Удаление",
-                                      message: "Вы действительно хотите удалить все книги?",
-                                      preferredStyle: UIAlertController.Style.alert)
-
-        removeAllBooksAlert.addAction(UIAlertAction(title: "Удалить",
-                                                    style: UIAlertAction.Style.destructive,
-                                                    handler: { _ in self.removeAllBooks() }))
-        removeAllBooksAlert.addAction(UIAlertAction(title: "Отмена",
-                                                    style: UIAlertAction.Style.cancel,
-                                                    handler: nil))
-
-        self.present(removeAllBooksAlert, animated: true, completion: nil)
+    private func setBooksCounter(_ counter: Int) {
+        booksCounter = counter < 0 ? 0 : counter
     }
     
     private func removeAllBooks() {
         addHistoryItem(historyItemType: .reset)
-        booksCounter = 0
+        setBooksCounter(0)
     }
     
     private func updateCounterLabel() {
@@ -69,15 +39,11 @@ class ViewController: UIViewController {
     }
     
     private func updateButtonColors() {
-        if booksCounter == 0 {
-            removeBookButton.configuration?.baseForegroundColor = .systemGray2
-            removeAllBooksButton.configuration?.baseForegroundColor = .systemGray2
-            removeAllBooksButton.isEnabled = false
-        } else {
-            removeBookButton.configuration?.baseForegroundColor = .red
-            removeAllBooksButton.configuration?.baseForegroundColor = .red
-            removeAllBooksButton.isEnabled = true
-        }
+        let isEmptyCounter = booksCounter == 0
+        
+        removeBookButton.configuration?.baseForegroundColor = isEmptyCounter ? .systemGray2 : .red
+        removeAllBooksButton.configuration?.baseForegroundColor = isEmptyCounter ? .systemGray2 : .red
+        removeAllBooksButton.isEnabled = !isEmptyCounter
     }
     
     private func addHistoryItem(historyItemType: HistoryItemType) {
@@ -86,10 +52,39 @@ class ViewController: UIViewController {
     
     private func getDateString() -> String {
         let formatter = DateFormatter()
-
+        
         formatter.dateFormat = "dd-MM-yyyy HH:mm"
         
         return formatter.string(from: Date.now)
+    }
+    
+    @IBAction private func onPressAddBookButton(_ sender: Any) {
+        addHistoryItem(historyItemType: .add)
+        setBooksCounter(booksCounter + 1)
+    }
+    
+    @IBAction private func onPressRemoveBookButton(_ sender: Any) {
+        if booksCounter - 1 < 0 {
+            addHistoryItem(historyItemType: .negativeValue)
+        } else {
+            addHistoryItem(historyItemType: .remove)
+        }
+        setBooksCounter(booksCounter - 1)
+    }
+    
+    @IBAction private func onPressRemoveAllBooksButton(_ sender: Any) {
+        let removeAllBooksAlert = UIAlertController(title: "Удаление",
+                                                    message: "Вы действительно хотите удалить все книги?",
+                                                    preferredStyle: UIAlertController.Style.alert)
+        
+        removeAllBooksAlert.addAction(UIAlertAction(title: "Удалить",
+                                                    style: UIAlertAction.Style.destructive,
+                                                    handler: { _ in self.removeAllBooks() }))
+        removeAllBooksAlert.addAction(UIAlertAction(title: "Отмена",
+                                                    style: UIAlertAction.Style.cancel,
+                                                    handler: nil))
+        
+        self.present(removeAllBooksAlert, animated: true, completion: nil)
     }
 }
 
