@@ -1,24 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Counter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В вашей библиотеке нет книг" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNR-Aj-CKu">
+                                <rect key="frame" x="15" y="52" width="289" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaN-h4-npo">
+                                <rect key="frame" x="16" y="518" width="48" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system">
+                                    <color key="baseForegroundColor" systemColor="systemGray2Color"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onPressRemoveAllBooksButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fsg-hg-6So"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGS-Wg-hrd">
+                                <rect key="frame" x="135" y="518" width="50" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="minus.circle" catalog="system">
+                                    <color key="baseForegroundColor" systemColor="systemGray2Color"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onPressRemoveBookButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iAG-O0-tcm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5HY-nb-kl4">
+                                <rect key="frame" x="254" y="518" width="50" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus.circle" catalog="system">
+                                    <color key="baseForegroundColor" name="AccentColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onPressAddBookButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5lV-I2-CXu"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="История изменений:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FDh-Jj-84a">
+                                <rect key="frame" x="16" y="94" width="288" height="408"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FDh-Jj-84a" firstAttribute="top" secondItem="hNR-Aj-CKu" secondAttribute="bottom" constant="16" id="0Mi-Sj-GQA"/>
+                            <constraint firstItem="mGS-Wg-hrd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eaN-h4-npo" secondAttribute="trailing" constant="8" symbolic="YES" id="0jW-ZD-Ggh"/>
+                            <constraint firstItem="hNR-Aj-CKu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="4X7-oF-Ud8"/>
+                            <constraint firstItem="mGS-Wg-hrd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="E83-wF-3Ih"/>
+                            <constraint firstItem="hNR-Aj-CKu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="Fyo-EN-dUQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5HY-nb-kl4" secondAttribute="trailing" constant="16" id="MjO-Bw-LcY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hNR-Aj-CKu" secondAttribute="trailing" constant="16" id="N8I-UI-42y"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FDh-Jj-84a" secondAttribute="trailing" constant="16" id="QrO-v8-JV0"/>
+                            <constraint firstItem="mGS-Wg-hrd" firstAttribute="top" secondItem="FDh-Jj-84a" secondAttribute="bottom" constant="16" id="dus-GZ-EKm"/>
+                            <constraint firstItem="5HY-nb-kl4" firstAttribute="top" secondItem="FDh-Jj-84a" secondAttribute="bottom" constant="16" id="eYc-jf-wiI"/>
+                            <constraint firstItem="eaN-h4-npo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="g4g-dK-4LS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eaN-h4-npo" secondAttribute="bottom" constant="16" id="jCZ-6L-T7T"/>
+                            <constraint firstItem="eaN-h4-npo" firstAttribute="top" secondItem="FDh-Jj-84a" secondAttribute="bottom" constant="16" id="nI7-oE-wUd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5HY-nb-kl4" secondAttribute="bottom" constant="16" id="o7Y-jr-e7F"/>
+                            <constraint firstItem="FDh-Jj-84a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="ppr-pm-Xnx"/>
+                            <constraint firstItem="5HY-nb-kl4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mGS-Wg-hrd" secondAttribute="trailing" constant="8" symbolic="YES" id="rWW-8D-6UE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addBookButton" destination="5HY-nb-kl4" id="6Dv-VE-rH8"/>
+                        <outlet property="counterLabel" destination="hNR-Aj-CKu" id="1GJ-7D-1qG"/>
+                        <outlet property="historyTextView" destination="FDh-Jj-84a" id="7BJ-Rb-UPX"/>
+                        <outlet property="removeAllBooksButton" destination="eaN-h4-npo" id="WZB-HT-gv5"/>
+                        <outlet property="removeBookButton" destination="mGS-Wg-hrd" id="EQg-mc-7uO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="129.00763358778624" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="minus.circle" catalog="system" width="128" height="123"/>
+        <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
